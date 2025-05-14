@@ -86,27 +86,40 @@ const password = ref("");
 const router = useRouter();
 const toast = useToast();
 const { $auth, $googleProvider } = useNuxtApp();
+const TOAST_DURATION = 2000;
 
 const handleSignin = async (e) => {
   e.preventDefault();
   try {
     await signinUser(email.value, password.value);
-    toast.success("User signed in successfully");
+    toast.success("User signed in successfully", {
+      position: "bottom-right",
+      timeout: TOAST_DURATION,
+    });
     router.push("/");
   } catch (err) {
     console.error(err.code, err.message);
-    toast.error("Incorrect email or password");
+    toast.error("Incorrect email or password", {
+      position: "bottom-right",
+      timeout: TOAST_DURATION,
+    });
   }
 };
 
 const handleGoogleSignIn = async () => {
   try {
     await signInWithGoogle($auth, $googleProvider);
-    toast.success("Signed in with Google successfully");
+    toast.success("Signed in with Google successfully", {
+      position: "bottom-right",
+      timeout: TOAST_DURATION,
+    });
     router.push("/");
   } catch (error) {
     console.error(error.code, error.message);
-    toast.error("Failed to sign in with Google");
+    toast.error("Failed to sign in with Google", {
+      position: "bottom-right",
+      timeout: TOAST_DURATION,
+    });
   }
 };
 </script>

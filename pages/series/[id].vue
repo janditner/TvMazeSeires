@@ -89,6 +89,7 @@ const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
 const series = ref(null);
 const loading = ref(true);
 const errorMsg = ref("");
+const TOAST_DURATION = 2000;
 
 const isInFavorites = computed(() => {
   return series.value ? isFavorite(series.value.id) : false;
@@ -112,19 +113,28 @@ const toggleFavorite = () => {
 
   if (isInFavorites.value) {
     removeFromFavorites(series.value.id);
-    toast.success("Removed from favorites");
+    toast.success("Removed from favorites", {
+      position: "bottom-right",
+      timeout: TOAST_DURATION,
+    });
   } else {
     const success = addToFavorites({
       id: series.value.id,
       name: series.value.name,
-      image: series.value.image?.medium,
+      image: series.value.image,
       rating: series.value.rating,
     });
 
     if (success) {
-      toast.success("Added to favorites");
+      toast.success("Added to favorites", {
+        position: "bottom-right",
+        timeout: TOAST_DURATION,
+      });
     } else {
-      toast.warning("Already in favorites");
+      toast.warning("Already in favorites", {
+        position: "bottom-right",
+        timeout: TOAST_DURATION,
+      });
     }
   }
 };

@@ -50,18 +50,22 @@ const email = ref("");
 const password = ref("");
 const router = useRouter();
 const toast = useToast();
-const REDIRECT_TO_LOGIN_TIME = 2000;
+const TOAST_DURATION = 2000;
 
 const handleRegister = async (e) => {
   e.preventDefault();
   if (!email.value.endsWith("inova.si")) {
-    toast.error("Only @inova.si emails are allowed");
+    toast.error("Only @inova.si emails are allowed", {
+      position: "bottom-right",
+      timeout: TOAST_DURATION,
+    });
     return;
   }
   try {
     await registerUser(email.value, password.value);
     toast.success("Registered successfully! Redirecting to sign in...", {
-      timeout: REDIRECT_TO_LOGIN_TIME,
+      position: "bottom-right",
+      timeout: TOAST_DURATION,
       onClose: () => {
         router.push("signin");
       },

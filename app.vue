@@ -292,6 +292,7 @@ const LOADING_SCREEN_TIME = 300;
 const MIN_INPUT_LENGTH = 2;
 const AUTOCOMPLETE_NUMBER_OF_RESULTS = 3;
 const BLUR_TIME = 100;
+const TOAST_DURATION = 2000;
 
 const toast = useToast();
 const router = useRouter();
@@ -345,7 +346,10 @@ const fetchSeries = async () => {
     }
     search.value.selectedSeries = data || [];
   } catch (err) {
-    toast.error("Failed to load results. Please try again.");
+    toast.error("Failed to load results. Please try again.", {
+      position: "bottom-right",
+      timeout: TOAST_DURATION,
+    });
     console.error("Search failed:", err);
   } finally {
     search.value.isSearching = false;
@@ -445,6 +449,9 @@ onMounted(() => {
 const handleLogout = () => {
   logout();
   router.push("/");
-  toast.success("You have been logged out successfully!");
+  toast.success("You have been logged out successfully!", {
+    position: "bottom-right",
+    timeout: TOAST_DURATION,
+  });
 };
 </script>

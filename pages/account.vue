@@ -42,16 +42,25 @@
               v-if="favorites.length > 0"
               class="grid grid-cols-2 md:grid-cols-3 gap-4"
             >
-              <div
+              <NuxtLink
                 v-for="series in favorites"
                 :key="series.id"
-                class="bg-gray-700 p-4 rounded-lg"
+                :to="`/series/${series.id}`"
+                class="bg-gray-700 p-4 rounded-lg hover:bg-gray-600 transition"
               >
+                <img
+                  :src="
+                    series.image?.medium ||
+                    'https://via.placeholder.com/210x295?text=No+Image'
+                  "
+                  alt="Series image"
+                  class="w-16 h-20 object-cover rounded-md mb-2"
+                />
                 <h4 class="font-medium">{{ series.name }}</h4>
                 <p class="text-sm text-gray-400">
                   {{ series.rating?.average || "N/A" }}/10
                 </p>
-              </div>
+              </NuxtLink>
             </div>
             <p v-else class="text-gray-400">
               You haven't added any favorites yet.
@@ -83,6 +92,7 @@ const router = useRouter();
 const toast = useToast();
 const { user, isAuthenticated, logout } = useAuth();
 const { favorites } = useFavorites();
+const TOAST_DURATION = 2000;
 
 const errorMsg = ref("");
 
@@ -95,6 +105,9 @@ onMounted(() => {
 const handleLogout = () => {
   logout();
   router.push("/");
-  toast.success("You have been logged out successfully!");
+  toast.success("You have been logged out successfully!", {
+    position: "bottom-right",
+    timeout: TOAST_DURATION,
+  });
 };
 </script>
