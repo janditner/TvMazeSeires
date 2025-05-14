@@ -189,7 +189,19 @@
           </div>
         </div>
         <!-- Desktop auth buttons -->
-        <div class="flex gap-x-2 hidden sm:flex">
+        <div v-if="!isAuthenticated" class="">
+          <NuxtLink
+            to="/signin"
+            class="px-4 py-2 transition-all hover:bg-gray-600 hover:rounded-lg hover:underline mr-4"
+            >Sign in</NuxtLink
+          >
+          <NuxtLink
+            to="/register"
+            class="px-4 py-2 transition-all bg-blue-800 rounded-lg hover:bg-gray-600 hover:rounded-lg hover:underline"
+            >Register</NuxtLink
+          >
+        </div>
+        <div v-else class="flex gap-x-2 hidden sm:flex">
           <div
             class="relative mr-4"
             ref="accountMenuRef"
