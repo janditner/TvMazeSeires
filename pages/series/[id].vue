@@ -47,19 +47,18 @@
               {{ genre }}
             </span>
           </div>
-          <div v-if="series.officialSite || series.url" class="flex mt-8">
+          <div v-if="series.officialSite || series.url" class="flex mt-6">
             <a
               :href="series.officialSite || series.url"
               target="_blank"
-              class="bg-blue-600 hover:bg-blue-900 text-white px-4 py-2 cursor-pointer rounded-full transition"
+              class="text-xs sm:text-base bg-blue-600 hover:bg-blue-900 text-white px-4 py-2 cursor-pointer rounded-full transition"
             >
               Watch Now
             </a>
-
             <button
               v-if="isAuthenticated"
               @click="toggleFavorite"
-              class="ml-8 py-2 px-4 rounded-full cursor-pointer transition-all"
+              class="text-xs sm:text-base ml-4 py-2 px-4 rounded-full cursor-pointer transition-all"
               :class="{
                 'bg-red-600 hover:bg-red-700': isInFavorites,
                 'bg-blue-600 hover:bg-blue-700': !isInFavorites,
@@ -67,6 +66,12 @@
             >
               {{ isInFavorites ? "Remove from Favorites" : "Add to Favorites" }}
             </button>
+            <NuxtLink
+              v-if="!isAuthenticated"
+              class="text-xs sm:text-base ml-4 px-4 py-2 rounded-full bg-red-500 hover"
+              to="../signin"
+              >Sign in to add to favorites</NuxtLink
+            >
           </div>
         </div>
       </div>
