@@ -30,7 +30,6 @@
             />
           </svg>
         </button>
-        <!-- Mobile drawer -->
         <div
           v-if="isMobileMenuOpen"
           class="sm:hidden fixed top-0 left-0 h-full w-80 bg-gray-800 p-4 z-50"
