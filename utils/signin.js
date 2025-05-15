@@ -7,6 +7,7 @@ import {
 import { useToast } from "vue-toastification";
 
 const toast = useToast();
+const TOAST_TIMER = 2000;
 
 export const signinUser = async (auth, email, password) => {
   try {
@@ -15,7 +16,6 @@ export const signinUser = async (auth, email, password) => {
       email,
       password
     );
-    // Store user data in localStorage
     const user = userCredential.user;
     localStorage.setItem(
       "user",
@@ -40,7 +40,10 @@ export const signInWithGoogle = async (auth, googleProvider) => {
 
     if (!user.email.endsWith("@inova.si")) {
       await user.delete();
-      toast.error("Only @inova.si email addresses are allowed.");
+      toast.error("Only @inova.si email addresses are allowed.", {
+        position: "bottom-right",
+        timeout: TOAST_TIMER,
+      });
       throw new Error("Only @inova.si email addresses are allowed.");
     }
 

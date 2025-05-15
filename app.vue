@@ -33,7 +33,7 @@
         <!-- Mobile drawer -->
         <div
           v-if="isMobileMenuOpen"
-          class="sm:hidden fixed top-0 left-0 h-full w-64 bg-gray-800 p-4 z-50"
+          class="sm:hidden fixed top-0 left-0 h-full w-80 bg-gray-800 p-4 z-50"
         >
           <button @click="isMobileMenuOpen = false" class="text-white mb-4">
             Close ✖
@@ -43,6 +43,7 @@
             <div class="relative w-full">
               <input
                 id="mobileSearch"
+                autocomplete="off"
                 v-model="search.query"
                 @input="handleInput"
                 placeholder="Search series"
@@ -102,21 +103,33 @@
           <!-- Mobile auth buttons -->
           <USeparator />
           <div class="mt-8">
-            <NuxtLink to="/signin" class="text-white mb-4 px-4"
-              >Sign in</NuxtLink
+            <div v-if="!isAuthenticated" class="">
+              <NuxtLink to="/signin" class="text-white mb-4 px-4"
+                >Sign in</NuxtLink
+              >
+              <NuxtLink
+                to="/register"
+                class="text-white bg-blue-600 rounded-xl px-4 py-2 ml-6"
+                >Register</NuxtLink
+              >
+            </div>
+            <div
+              v-if="isAuthenticated"
+              class="mt-8 flex content-center text-center"
             >
-            <NuxtLink
-              to="/register"
-              class="text-white bg-blue-600 rounded-xl px-4 py-2 ml-6"
-              >Register</NuxtLink
-            >
-            <div class="mt-8 flex content-center text-center">
               <NuxtLink
                 to="/account"
                 class="w-full px-4 py-2 bg-blue-600 rounded-xl"
                 >Account</NuxtLink
               >
             </div>
+            <button
+              class="mt-2 w-full px-4 py-2 bg-blue-600 rounded-xl"
+              v-if="isAuthenticated"
+              @click="handleLogout"
+            >
+              Logout
+            </button>
           </div>
         </div>
         <!-- Desktop search -->
@@ -189,7 +202,7 @@
           </div>
         </div>
         <!-- Desktop auth buttons -->
-        <div v-if="!isAuthenticated" class="">
+        <div v-if="!isAuthenticated" class="hidden sm:inline">
           <NuxtLink
             to="/signin"
             class="px-4 py-2 transition-all hover:bg-gray-600 hover:rounded-lg hover:underline mr-4"
