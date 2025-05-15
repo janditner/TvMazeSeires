@@ -47,7 +47,7 @@
                 v-model="search.query"
                 @input="handleInput"
                 placeholder="Search series"
-                class="w-full bg-gray-600 rounded px-4 py-2 text-white rounded-full outline-none pr-8"
+                class="w-full bg-gray-600 rounded px-4 py-2 text-white rounded-full outline-none pr-8 focus:bg-gray-500"
               />
               <button
                 v-if="search.query"
@@ -60,7 +60,7 @@
 
             <button
               @click="handleEnter"
-              class="bg-blue-600 text-white px-3 py-2 rounded-full"
+              class="bg-blue-600 text-white px-4 py-2 rounded-full"
             >
               Go
             </button>
@@ -69,7 +69,7 @@
                 showSuggestions &&
                 search.query.trim().length >= MIN_INPUT_LENGTH
               "
-              class="absolute bg-gray-900 text-white rounded-lg shadow-md w-56 mt-12"
+              class="absolute bg-gray-900 text-white rounded-lg shadow-md w-72 mt-12"
               @blur="handleBlur"
             >
               <li
@@ -103,13 +103,11 @@
           <!-- Mobile auth buttons -->
           <USeparator />
           <div class="mt-8">
-            <div v-if="!isAuthenticated" class="">
-              <NuxtLink to="/signin" class="text-white mb-4 px-4"
-                >Sign in</NuxtLink
-              >
+            <div v-if="!isAuthenticated">
+              <NuxtLink to="/signin" class="text-white px-8">Sign in</NuxtLink>
               <NuxtLink
                 to="/register"
-                class="text-white bg-blue-600 rounded-xl px-4 py-2 ml-6"
+                class="text-white bg-blue-600 rounded-full px-4 py-3 ml-8"
                 >Register</NuxtLink
               >
             </div>
@@ -205,12 +203,12 @@
         <div v-if="!isAuthenticated" class="hidden sm:inline">
           <NuxtLink
             to="/signin"
-            class="px-4 py-2 transition-all hover:bg-gray-600 hover:rounded-lg hover:underline mr-4"
+            class="px-4 py-2 transition-all hover:bg-gray-600 hover:rounded-full hover:underline mr-4"
             >Sign in</NuxtLink
           >
           <NuxtLink
             to="/register"
-            class="px-4 py-2 transition-all bg-blue-800 rounded-lg hover:bg-gray-600 hover:rounded-lg hover:underline"
+            class="px-4 py-3 transition-all bg-blue-600 rounded-full hover:bg-gray-600 hover:rounded-full hover:underline"
             >Register</NuxtLink
           >
         </div>
@@ -249,18 +247,6 @@
               class="absolute right-0 mt-2 w-40 bg-blue-900 text-white rounded-lg shadow-lg z-50"
             >
               <NuxtLink
-                v-if="!isAuthenticated"
-                to="/signin"
-                class="block px-4 py-2 transition-all hover:bg-gray-600 hover:rounded-lg hover:underline"
-                >Sign in</NuxtLink
-              >
-              <NuxtLink
-                v-if="!isAuthenticated"
-                to="/register"
-                class="block px-4 py-2 transition-all hover:bg-gray-600 hover:rounded-lg hover:underline"
-                >Register</NuxtLink
-              >
-              <NuxtLink
                 to="/account"
                 class="block px-4 py-2 transition-all hover:bg-gray-600 hover:rounded-lg hover:underline"
                 >Account</NuxtLink
@@ -287,6 +273,7 @@
     >
       <div class="text-white text-xl">Loading...</div>
     </div>
+
     <NuxtPage class="min-h-screen" />
   </NuxtLayout>
 </template>
